@@ -1,8 +1,1 @@
-/**
- * 
- */
-/**
- * @author Havar
- *
- */
 package views;
