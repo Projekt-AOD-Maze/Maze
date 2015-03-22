@@ -1,6 +1,8 @@
 package se.hig.aod.maze.views;
 
-public class LabyrintView
+import javax.swing.JPanel;
+
+public class LabyrintView extends JPanel
 {
 
 }
