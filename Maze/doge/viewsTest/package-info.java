@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author Havar
- *
- */
-package viewsTest;
