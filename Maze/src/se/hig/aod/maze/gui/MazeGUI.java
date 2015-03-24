@@ -6,6 +6,7 @@ import java.awt.LayoutManager;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,31 +17,32 @@ import se.hig.aod.maze.views.LabyrintView;
 public class MazeGUI extends JFrame
 {
 	private MazeModel mazeModel;
-	private JPanel mainPanel, topPanel;
+	private JPanel topPanel;
 	private LabyrintView labyrintView;
-	private JButton generateButton, findPathButton;
+	private JButton generateButton, findPathButton, clearButton;
 	
 
 	public MazeGUI(MazeModel mazeModel)
 	{
 		super("Amazing Maze");
 		this.mazeModel = mazeModel;
-		mainPanel = new JPanel();
-		labyrintView = new LabyrintView();
+		labyrintView = new LabyrintView(mazeModel);
 		
 		topPanel = new JPanel();
 		generateButton = new JButton("Generate");
 		findPathButton = new JButton("Find Path");
+		clearButton = new JButton("Clear");
 		topPanel.add(generateButton);
 		topPanel.add(findPathButton);
+		topPanel.add(clearButton);
 		
-		mainPanel.setLayout(new BorderLayout());
-		mainPanel.add(topPanel, BorderLayout.NORTH);
-		mainPanel.add(labyrintView, BorderLayout.CENTER);
+		setLayout(new BorderLayout());
+		getContentPane().add(topPanel, BorderLayout.PAGE_START);
+		getContentPane().add(labyrintView, BorderLayout.CENTER);
 		
-		getContentPane().add(mainPanel);
+		pack();
 		setResizable(false);
-		setSize(new Dimension(800,600));
+		
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setObserver();
@@ -71,5 +73,23 @@ public class MazeGUI extends JFrame
 		}
 		
 	}
+
+	public void setGenerateLabyrinthListener(AbstractAction generateLabyrinthListener)
+	{
+		generateButton.addActionListener(generateLabyrinthListener);
+	}
+
+	public void setFindPathListener(AbstractAction findPathListener)
+	{
+		findPathButton.addActionListener(findPathListener);
+		
+	}
+	
+	public void setClearListener(AbstractAction clearListener)
+	{
+		clearButton.addActionListener(clearListener);
+		
+	}
+
 	
 }
