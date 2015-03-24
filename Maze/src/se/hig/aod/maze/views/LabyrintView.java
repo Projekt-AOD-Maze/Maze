@@ -25,7 +25,7 @@ public class LabyrintView extends JPanel
 		setPreferredSize(new Dimension(600,600));
 		setBackground(Color.PINK);
 		
-		 setLayout(new GridLayout(25,25));
+		 setLayout(new GridLayout(50,50));
 		 
 		 TileModel[][] tiles = mazeModel.getTiles();
 		 

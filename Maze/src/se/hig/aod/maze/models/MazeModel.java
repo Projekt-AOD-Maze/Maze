@@ -13,7 +13,7 @@ public class MazeModel extends Observable
 	public MazeModel()
 	{
 		
-		int size = 25;
+		int size = 50;
 		
 		tiles = new TileModel[size][size];
 		resetLabyrinth();
@@ -36,7 +36,7 @@ public class MazeModel extends Observable
 			{
 				TileModel tileModel = new TileModel(TileState.BLOCKED);
 				
-				tileModel.add(new JLabel(x + "," + y));
+//				tileModel.add(new JLabel(x + "," + y));
 				
 				tiles[x][y] = tileModel;
 			}
