@@ -38,7 +38,7 @@ public class LabyrintView extends JPanel
 
 			for (int y = 0; y < tiles[x].length; y++)
 			{
-				add(tiles[x][y]);
+				add(tiles[y][x]);
 			}
 		}
 		revalidate();

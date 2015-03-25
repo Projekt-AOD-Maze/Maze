@@ -25,10 +25,17 @@ public class DirectionTest
 		assertFalse(Direction.isNotTileValid(0, 0, testTiles));
 		assertFalse(Direction.isNotTileValid(2, 2, testTiles));
 		
-		assertTrue(Direction.isNotTileValid(3, 2, testTiles));
-		assertTrue(Direction.isNotTileValid(2, 3, testTiles));
-		assertTrue(Direction.isNotTileValid(-1, 2, testTiles));
-		assertTrue(Direction.isNotTileValid(1, -1, testTiles));
+		// allow one steps outside
+		assertFalse(Direction.isNotTileValid(3, 2, testTiles));
+		assertFalse(Direction.isNotTileValid(2, 3, testTiles));
+		assertFalse(Direction.isNotTileValid(-1, 2, testTiles));
+		assertFalse(Direction.isNotTileValid(1, -1, testTiles));
+		
+		// dont allow two steps outside
+		assertTrue(Direction.isNotTileValid(4, 2, testTiles));
+		assertTrue(Direction.isNotTileValid(2, 4, testTiles));
+		assertTrue(Direction.isNotTileValid(-2, 2, testTiles));
+		assertTrue(Direction.isNotTileValid(1, -2, testTiles));
 	}
 	
 	@Test
@@ -148,7 +155,7 @@ public class DirectionTest
 
 			for (int y = 0; y < testTiles[x].length; y++)
 			{
-				TileModel tileModel = new TileModel(TileState.BLOCKED);
+				TileModel tileModel = new TileModel(x,y,TileState.BLOCKED);
 				
 				
 				testTiles[x][y] = tileModel;

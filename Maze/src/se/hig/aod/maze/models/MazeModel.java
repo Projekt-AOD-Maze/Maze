@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 public class MazeModel extends Observable
 {
 	private TileModel[][] tiles;
-	public static final int SIZE = 20;
+	public static final int SIZE = 15;
 	
 	
 	public MazeModel()
@@ -33,9 +33,9 @@ public class MazeModel extends Observable
 
 			for (int y = 0; y < tiles[x].length; y++)
 			{
-				TileModel tileModel = new TileModel(TileState.BLOCKED);
+				TileModel tileModel = new TileModel(x,y,TileState.BLOCKED);
 				
-//				tileModel.add(new JLabel(x + "," + y));
+				tileModel.add(new JLabel(x + "," + y));
 				
 				tiles[x][y] = tileModel;
 			}
