@@ -41,9 +41,9 @@ public class MazeGenerator implements Runnable
 				tiles[startX][startY].setState(TileState.GOAL);
 				stop = true;
 				stack = new Stack<TileModel>();
-				currentCell = tiles[startX][startY];
 			}
 			
+			currentCell = tiles[startX][startY];
 			sleep(250);
 		}
 
