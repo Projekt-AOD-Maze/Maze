@@ -59,11 +59,12 @@ public class MazeGUI extends JFrame
 		@Override
 		public void update(Observable observable, Object message)
 		{
+			System.out.println("UPDATE OBSERVER");
 			switch (message.toString())
 			{
-				case "repaint":
+				case "update":
 					
-					labyrintView.repaint();
+					labyrintView.update();
 					
 					break;
 
@@ -72,6 +73,11 @@ public class MazeGUI extends JFrame
 			}		
 		}
 		
+	}
+	
+	public void setGenerateButtonLabel(String label)
+	{
+		generateButton.setText(label);
 	}
 
 	public void setGenerateLabyrinthListener(AbstractAction generateLabyrinthListener)

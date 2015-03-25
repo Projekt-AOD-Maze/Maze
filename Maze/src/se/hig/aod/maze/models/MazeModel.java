@@ -7,15 +7,13 @@ import javax.swing.JLabel;
 public class MazeModel extends Observable
 {
 	private TileModel[][] tiles;
-	
+	public static final int SIZE = 20;
 	
 	
 	public MazeModel()
 	{
 		
-		int size = 50;
-		
-		tiles = new TileModel[size][size];
+		tiles = new TileModel[SIZE][SIZE];
 		resetLabyrinth();
 		
 	}
@@ -24,6 +22,7 @@ public class MazeModel extends Observable
 
 	public void updateLabyrinth(String message)
 	{
+		setChanged();
 		notifyObservers(message);
 	}
 	
@@ -41,15 +40,7 @@ public class MazeModel extends Observable
 				tiles[x][y] = tileModel;
 			}
 		}
-		
-//			tiles[24][24].setState(TileState.GOAL);
-//		for (int i = 0; i < tiles.length; i++)
-//		{
-//			tiles[4][i].setState(TileState.GOAL);
-//			
-//		}
-//		tiles[3][8].setState(TileState.GOAL);
-//		tiles[5][8].setState(TileState.GOAL);
+		updateLabyrinth("update");
 	}
 
 
