@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JPanel;
-
 import se.hig.aod.maze.models.MazeModel;
 import se.hig.aod.maze.models.TileModel;
 
@@ -20,7 +19,7 @@ public class LabyrintView extends JPanel
 		this.mazeModel = mazeModel;
 		
 		setPreferredSize(new Dimension(600,600));
-		setBackground(Color.PINK);
+		setBackground(Color.BLACK);
 		
 		 setLayout(new GridLayout(MazeModel.SIZE,MazeModel.SIZE));
 		 
@@ -29,7 +28,6 @@ public class LabyrintView extends JPanel
 
 	public void update()
 	{
-		System.out.println("I like to update my LabyrinthView");
 		removeAll();
 		TileModel[][] tiles = mazeModel.getTiles();
 		

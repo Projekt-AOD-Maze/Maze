@@ -38,12 +38,11 @@ public class MazeGenerator implements Runnable
 			{
 				// checkNext(startX, startY);
 				stackBasedNext();
-				tiles[startX][startY].setState(TileState.GOAL);
 				stop = true;
 				stack = new Stack<TileModel>();
 			}
-			
 			currentCell = tiles[startX][startY];
+//			currentCell.setState(TileState.BLOCKED);
 			sleep(250);
 		}
 
@@ -74,7 +73,7 @@ public class MazeGenerator implements Runnable
 			}
 		}
 
-		sleep(10);
+		sleep(50);
 		if (wayFound)
 		{
 			stack.push(currentCell);
@@ -87,7 +86,7 @@ public class MazeGenerator implements Runnable
 			currentCell = stack.pop();
 			stackBasedNext();
 		}else{
-			System.out.println("done");
+			tiles[startX][startY].setState(TileState.GOAL);
 		}
 	}
 
@@ -106,51 +105,6 @@ public class MazeGenerator implements Runnable
 
 		}
 		return null;
-	}
-
-	private void checkNext(int x, int y)
-	{
-
-		// while(pause)
-		// {
-		// sleep(50);
-		// }
-		// if(stop)return;
-		//
-		// tiles[x][y].setState(TileState.VISITED);
-		// sleep(50);
-		// Direction [] directions = ShuffleArray(Direction.values());
-		// for (int i = 0; i < directions.length; i++)
-		// {
-		// if(stop)return;
-		// if(directions[i].isValid(x, y, tiles))
-		// {
-		// switch (directions[i])
-		// {
-		// case DOWN:
-		// y++;
-		// break;
-		// case LEFT:
-		// x--;
-		// break;
-		// case UP:
-		// y--;
-		// break;
-		// case RIGHT:
-		// x++;
-		// break;
-		//
-		// default:
-		// break;
-		// }
-		// System.out.println(x+ "," + y);
-		// checkNext(x , y);
-		// }
-		//
-		// }
-		//
-		// sleep(50);
-		// tiles[x][y].setState(TileState.PATH);
 	}
 
 	private Direction[] ShuffleArray(Direction[] array)
@@ -196,6 +150,7 @@ public class MazeGenerator implements Runnable
 	public void setStop(boolean stop)
 	{
 		this.stop = stop;
+		currentCell = tiles[startX][startY];
+		currentCell.setState(TileState.BLOCKED);
 	}
-
 }
