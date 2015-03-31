@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
-import javax.swing.JPanel;
 import se.hig.aod.maze.models.MazeModel;
 import se.hig.aod.maze.models.TileModel;
 

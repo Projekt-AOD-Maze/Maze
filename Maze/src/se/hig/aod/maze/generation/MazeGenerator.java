@@ -1,20 +1,11 @@
 package se.hig.aod.maze.generation;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Collections;
 import java.util.Random;
 import java.util.Stack;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+
 import se.hig.aod.maze.models.TileModel;
 import se.hig.aod.maze.models.TileState;
+import se.hig.aod.maze.util.SoundUtil;
 
 public class MazeGenerator implements Runnable
 {
@@ -89,11 +80,10 @@ public class MazeGenerator implements Runnable
 		{
 			currentCell.setState(TileState.PATH);
 			currentCell = stack.pop();
-			playSound();
+			new SoundUtil().playPopStackSound();
 			findPath();
 		}
 
-		// Labyrinth is done, mark the goal!
 		else
 			tiles[startX][startY].setState(TileState.GOAL);
 	}
@@ -168,22 +158,6 @@ public class MazeGenerator implements Runnable
 		pause = false;
 		this.active = active;
 	}
-	
-	public void playSound()
-	{
-		File soundFile = new File("pop.wav");
-    AudioInputStream audioIn = null;
-    Clip clip = null;
-    try
-    {
- 	    audioIn = AudioSystem.getAudioInputStream(soundFile);
- 	    clip = AudioSystem.getClip();
-	    clip.open(audioIn);
-    }
-    catch (LineUnavailableException | UnsupportedAudioFileException | IOException e)
-    {
-	    e.printStackTrace();
-    }
-     clip.start();
-	}
+
+
 }

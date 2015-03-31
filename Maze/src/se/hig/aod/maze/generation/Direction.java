@@ -53,11 +53,6 @@ public enum Direction
 	protected static boolean isNotTileValid(int x , int y, TileModel[][] tiles)
 	{	
 		
-//		if(x >= tiles.length || y >=tiles[0].length) return true;
-//		if(x < 0 || y <0 ) return true;
-//		if(tiles[x][y].getState() != TileState.BLOCKED) return true;
-//		return false;
-		
 		  if(x > tiles.length || y > tiles[0].length) 
 			   return true;
 			   

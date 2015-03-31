@@ -2,8 +2,6 @@ package se.hig.aod.maze.models;
 
 import java.util.Observable;
 
-import javax.swing.JLabel;
-
 public class MazeModel extends Observable
 {
 	private TileModel[][] tiles;
