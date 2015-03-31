@@ -1,25 +1,23 @@
 package se.hig.aod.maze.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
+import java.awt.event.WindowAdapter;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import se.hig.aod.maze.models.MazeModel;
 import se.hig.aod.maze.views.LabyrintView;
 
 public class MazeGUI extends JFrame
 {
+	private static final long serialVersionUID = 1L;
 	private MazeModel mazeModel;
 	private JPanel topPanel;
 	private LabyrintView labyrintView;
-	private JButton generateButton, findPathButton, clearButton;
+	private JButton generateButton, clearButton;
 	
 
 	public MazeGUI(MazeModel mazeModel)
@@ -30,10 +28,8 @@ public class MazeGUI extends JFrame
 		
 		topPanel = new JPanel();
 		generateButton = new JButton("Generate");
-		findPathButton = new JButton("Find Path");
 		clearButton = new JButton("Clear");
 		topPanel.add(generateButton);
-		topPanel.add(findPathButton);
 		topPanel.add(clearButton);
 		
 		setLayout(new BorderLayout());
@@ -59,11 +55,12 @@ public class MazeGUI extends JFrame
 		@Override
 		public void update(Observable observable, Object message)
 		{
+			System.out.println("UPDATE OBSERVER");
 			switch (message.toString())
 			{
-				case "repaint":
+				case "update":
 					
-					labyrintView.repaint();
+					labyrintView.update();
 					
 					break;
 
@@ -71,18 +68,21 @@ public class MazeGUI extends JFrame
 					break;
 			}		
 		}
-		
+	}
+	
+	public void setWindowListener(WindowAdapter adapter)
+	{
+		addWindowListener(adapter);
+	}
+	
+	public void setGenerateButtonLabel(String label)
+	{
+		generateButton.setText(label);
 	}
 
 	public void setGenerateLabyrinthListener(AbstractAction generateLabyrinthListener)
 	{
 		generateButton.addActionListener(generateLabyrinthListener);
-	}
-
-	public void setFindPathListener(AbstractAction findPathListener)
-	{
-		findPathButton.addActionListener(findPathListener);
-		
 	}
 	
 	public void setClearListener(AbstractAction clearListener)

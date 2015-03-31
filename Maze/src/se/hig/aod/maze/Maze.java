@@ -18,7 +18,5 @@ public class Maze
 		MazeModel mazeModel = new MazeModel();
 		new MazeController(mazeModel, new  MazeGUI(mazeModel));
 	}
-	
-	
 
 }

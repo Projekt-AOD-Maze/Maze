@@ -6,12 +6,46 @@ public class TileModel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	private TileState state;
+	
+	private int xPos, yPos;
 
-	public TileModel(TileState state)
+	public TileModel(int x, int y, TileState state)
 	{
 		super();
 		setState(state);
+		setXPos(x);
+		setYPos(y);
 	}
+
+	
+
+	public int getXPos()
+	{
+		return xPos;
+	}
+
+
+
+	public void setXPos(int xPos)
+	{
+		this.xPos = xPos;
+	}
+
+
+
+	public int getYPos()
+	{
+		return yPos;
+	}
+
+
+
+	public void setYPos(int yPos)
+	{
+		this.yPos = yPos;
+	}
+
+
 
 	public TileState getState()
 	{
