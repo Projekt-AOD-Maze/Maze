@@ -56,7 +56,7 @@ public class MazeGenerator implements Runnable
 
 		currentCell.setState(TileState.VISITED);
 		boolean wayFound = false;
-		Direction[] directions = ShuffleArray(Direction.values());
+		Direction[] directions = shuffleArray(Direction.values());
 		for (int i = 0; i < directions.length; i++)
 		{
 			if (stop)
@@ -105,7 +105,7 @@ public class MazeGenerator implements Runnable
 		return null;
 	}
 
-	private Direction[] ShuffleArray(Direction[] array)
+	private Direction[] shuffleArray(Direction[] array)
 	{
 		int index;
 		Direction temp;

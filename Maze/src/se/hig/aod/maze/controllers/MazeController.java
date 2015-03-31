@@ -29,7 +29,7 @@ public class MazeController
 
 	}
 
-	public void setListeners()
+	private void setListeners()
 	{
 		mazeGUI.setGenerateLabyrinthListener(new GenerateLabyrinthListener());
 		mazeGUI.setClearListener(new ClearListener());
