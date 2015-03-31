@@ -1,9 +1,18 @@
 package se.hig.aod.maze.generation;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Stack;
-
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import se.hig.aod.maze.models.TileModel;
 import se.hig.aod.maze.models.TileState;
 
@@ -13,6 +22,7 @@ public class MazeGenerator implements Runnable
 	private int startX, startY;
 	private Random random = new Random();
 	private boolean pause, stop;
+	private boolean active = true;
 	TileModel currentCell;
 	Direction currentDirection;
 	Stack<TileModel> stack;
@@ -25,39 +35,34 @@ public class MazeGenerator implements Runnable
 		this.startY = startY;
 		pause = true;
 		currentCell = tiles[startX][startY];
-
 		stack = new Stack<TileModel>();
 	}
 
 	@Override
 	public void run()
 	{
-		while (true)
+		while (active)
 		{
 			if (!stop)
 			{
-				// checkNext(startX, startY);
-				stackBasedNext();
+				findPath();
 				stop = true;
 				stack = new Stack<TileModel>();
 			}
 			currentCell = tiles[startX][startY];
-//			currentCell.setState(TileState.BLOCKED);
 			sleep(250);
 		}
 
 	}
 
-	private void stackBasedNext()
+	private void findPath()
 	{
 		while (pause)
-		{
 			sleep(50);
-		}
+
 		if (stop)
 			return;
 
-		System.out.println(currentCell.getXPos() + "," + currentCell.getYPos());
 		currentCell.setState(TileState.VISITED);
 		boolean wayFound = false;
 		Direction[] directions = ShuffleArray(Direction.values());
@@ -67,27 +72,30 @@ public class MazeGenerator implements Runnable
 				return;
 			if (directions[i].isValid(currentCell.getXPos(), currentCell.getYPos(), tiles))
 			{
+				sleep(25);
 				currentDirection = directions[i];
 				wayFound = true;
 				break;
 			}
 		}
 
-		sleep(50);
 		if (wayFound)
 		{
 			stack.push(currentCell);
 			currentCell = getTileFromDirection(currentDirection);
-			stackBasedNext();
+			findPath();
 		}
 		else if(!stack.isEmpty())
 		{
 			currentCell.setState(TileState.PATH);
 			currentCell = stack.pop();
-			stackBasedNext();
-		}else{
-			tiles[startX][startY].setState(TileState.GOAL);
+			playSound();
+			findPath();
 		}
+
+		// Labyrinth is done, mark the goal!
+		else
+			tiles[startX][startY].setState(TileState.GOAL);
 	}
 
 	private TileModel getTileFromDirection(Direction direction)
@@ -152,5 +160,30 @@ public class MazeGenerator implements Runnable
 		this.stop = stop;
 		currentCell = tiles[startX][startY];
 		currentCell.setState(TileState.BLOCKED);
+	}
+
+	public void setActive(boolean active)
+	{
+		stop = true;
+		pause = false;
+		this.active = active;
+	}
+	
+	public void playSound()
+	{
+		File soundFile = new File("pop.wav");
+    AudioInputStream audioIn = null;
+    Clip clip = null;
+    try
+    {
+ 	    audioIn = AudioSystem.getAudioInputStream(soundFile);
+ 	    clip = AudioSystem.getClip();
+	    clip.open(audioIn);
+    }
+    catch (LineUnavailableException | UnsupportedAudioFileException | IOException e)
+    {
+	    e.printStackTrace();
+    }
+     clip.start();
 	}
 }

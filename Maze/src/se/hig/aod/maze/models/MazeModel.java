@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 public class MazeModel extends Observable
 {
 	private TileModel[][] tiles;
-	public static final int SIZE = 25;
+	public static final int SIZE = 50;
 	
 	
 	public MazeModel()
@@ -15,10 +15,7 @@ public class MazeModel extends Observable
 		
 		tiles = new TileModel[SIZE][SIZE];
 		resetLabyrinth();
-		
 	}
-
-
 
 	public void updateLabyrinth(String message)
 	{

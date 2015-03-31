@@ -1,9 +1,11 @@
 package se.hig.aod.maze.controllers;
 
 import java.awt.event.ActionEvent;
-
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import javax.swing.AbstractAction;
-
 import se.hig.aod.maze.generation.MazeGenerator;
 import se.hig.aod.maze.gui.MazeGUI;
 import se.hig.aod.maze.models.MazeModel;
@@ -34,6 +36,7 @@ public class MazeController
 		mazeGUI.setGenerateLabyrinthListener(new GenerateLabyrinthListener());
 		mazeGUI.setFindPathListener(new FindPathListener());
 		mazeGUI.setClearListener(new ClearListener());
+		mazeGUI.setWindowListener(new OnExitListener());
 	}
 	
 	private class GenerateLabyrinthListener extends AbstractAction
@@ -118,7 +121,15 @@ public class MazeController
 			buttonStrategy = new PauseStrategy();
 			
 		}
-		
+	}
+
+	private class OnExitListener extends WindowAdapter
+	{
+		@Override
+    public void windowClosing(WindowEvent arg0)
+    {
+			generator.setActive(false);
+    }
 	}
 	
 	private interface ButtonStrategy

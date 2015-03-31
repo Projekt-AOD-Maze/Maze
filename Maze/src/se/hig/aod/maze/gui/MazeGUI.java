@@ -3,14 +3,14 @@ package se.hig.aod.maze.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import se.hig.aod.maze.models.MazeModel;
 import se.hig.aod.maze.views.LabyrintView;
 
@@ -72,7 +72,11 @@ public class MazeGUI extends JFrame
 					break;
 			}		
 		}
-		
+	}
+	
+	public void setWindowListener(WindowAdapter adapter)
+	{
+		addWindowListener(adapter);
 	}
 	
 	public void setGenerateButtonLabel(String label)
